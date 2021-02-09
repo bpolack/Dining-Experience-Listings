@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) or die( 'Direct script access disallowed.' );
 
 function rel_add_settings_page() {
-    add_options_page( 'React Experience Listings', 'Experience Listings', 'manage_options', 'react-experiences-listings', 'rel_render_plugin_settings_page' );
+    add_options_page( 'Dining Experience Listings', 'Experience Listings', 'manage_options', 'react-experiences-listings', 'rel_render_plugin_settings_page' );
 }
 add_action( 'admin_menu', 'rel_add_settings_page' );
 
@@ -33,6 +33,7 @@ function rel_register_settings() {
     add_settings_field( 'rel_plugin_setting_map_pin', 'ACF Map Field', 'rel_plugin_setting_map_pin', 'react-experiences-listings', 'post_type_settings' );
     add_settings_field( 'rel_plugin_setting_category', 'Category Custom Taxonomy (optional)', 'rel_plugin_setting_category', 'react-experiences-listings', 'post_type_settings' );
     add_settings_field( 'rel_plugin_setting_category_icon', 'Category Icon Field', 'rel_plugin_setting_category_icon', 'react-experiences-listings', 'post_type_settings' );
+    add_settings_field( 'rel_plugin_setting_tag', 'Tag Custom Taxonomy (optional)', 'rel_plugin_setting_tag', 'react-experiences-listings', 'post_type_settings' );
     add_settings_field( 'rel_plugin_setting_region', 'Region Custom Taxonomy (optional)', 'rel_plugin_setting_region', 'react-experiences-listings', 'post_type_settings' );
     add_settings_field( 'rel_plugin_setting_region_colour', 'Region Colour Field', 'rel_plugin_setting_region_colour', 'react-experiences-listings', 'post_type_settings' );
 
@@ -80,6 +81,10 @@ function rel_plugin_setting_category() {
 function rel_plugin_setting_category_icon() {
     $options = get_option( 'rel_plugin_options' );
     echo '<input id="rel_plugin_setting_category_icon" name="rel_plugin_options[category_icon]" type="text" value="'.esc_attr( $options['category_icon'] ).'" />';
+}
+function rel_plugin_setting_tag() {
+    $options = get_option( 'rel_plugin_options' );
+    echo '<input id="rel_plugin_setting_tag" name="rel_plugin_options[tag]" type="text" value="'.esc_attr( $options['tag'] ).'" />';
 }
 function rel_plugin_setting_region() {
     $options = get_option( 'rel_plugin_options' );

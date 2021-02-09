@@ -16,7 +16,7 @@ export class RelFooter extends Component {
             else {
                 return (
                     <div className="rel-end-of-posts" >
-                        end of listings - try exploring a new category!
+                        ~ no more restaurants to load ~
                     </div>
                 )
             }

@@ -1,4 +1,4 @@
-.rel-region-button {
+.rel-tag-button {
     display: block;
     cursor: pointer;
     border-radius: 5px;
@@ -11,15 +11,7 @@
     line-height: 1;
     transition:0.3s ease all;
 }
-.rel-region-button:hover, .rel-region-button.active {
+.rel-tag-button:hover, .rel-tag-button.active {
     color: #FDCBA5;
     background-color: #000000;
-}
-.region-dot {
-    display: inline-block;
-    margin-right: 5px;
-    width:24px;
-    height:24px;
-    border-radius: 50%;
-    vertical-align: top;
 }

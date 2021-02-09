@@ -26,8 +26,10 @@ export class App extends Component {
             modalListing: false,
             page: 1,
             currentCategory: props.args.initialCategory,
+            currentTag: props.args.initialTag,
             currentRegion: props.args.initialRegion,
             categories: [],
+            tags: [],
             regions: [],
             listings: []
         };
@@ -36,11 +38,13 @@ export class App extends Component {
         this.relWP = new WPAPI({ endpoint: props.globals.apiLocation });
         this.relWP.relListings = this.relWP.registerRoute('wp/v2', '/' + props.globals.postType + '/(?P<id>\\d+)');
         this.relWP.relCategories = this.relWP.registerRoute('wp/v2', '/' + props.globals.categoryName + '/');
+        this.relWP.relTags = this.relWP.registerRoute('wp/v2', '/' + props.globals.tagName + '/');
         this.relWP.relRegions = this.relWP.registerRoute('wp/v2', '/' + props.globals.regionName + '/');
 
         // Bind callback methods to class
         this.changeView = this.changeView.bind(this);
         this.changeCategory = this.changeCategory.bind(this);
+        this.changeTag = this.changeTag.bind(this);
         this.changeRegion = this.changeRegion.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.loadMore = this.loadMore.bind(this);
@@ -49,6 +53,7 @@ export class App extends Component {
     componentDidMount() {
         if (this.state.view !== 'single') {
             this.fetchCategories(this.state.currentCategory);
+            this.fetchTags(this.state.currentTag);
             this.fetchRegions(this.state.currentRegion);
             this.fetchNextListings();
         }
@@ -88,6 +93,31 @@ export class App extends Component {
             this.fetchCategories(category); // configure fetch for subcats
             this.fetchNextListings();
         })
+    }
+
+    // Method to change the active tag
+    changeTag(tag) {
+        if (tag == this.state.currentTag) {
+            // Toggle tag filtering off
+            this.setState({
+                currentTag: this.props.args.initialTag,
+                page: 1,
+                listings: [],
+                loading: true
+            }, () => {
+                this.fetchNextListings();
+            })
+        }
+        else {
+            this.setState({
+                currentTag: tag,
+                page: 1,
+                listings: [],
+                loading: true
+            }, () => {
+                this.fetchNextListings();
+            })
+        }
     }
 
     // Method to change the active region
@@ -181,14 +211,15 @@ export class App extends Component {
     fetchNextListings() {
 
         // Destruct required props and states
-        const { categoryName, regionName } = this.props.globals;
-        const { perpage, excludeCategories, excludeRegions, initialCategory } = this.props.args;
-        const { currentCategory, currentRegion, page } = this.state;
+        const { categoryName, tagName, regionName } = this.props.globals;
+        const { perpage, excludeCategories, initialCategory } = this.props.args;
+        const { currentCategory, currentTag, currentRegion, page } = this.state;
 
         this.relWP.relListings()
             .param(categoryName, (currentCategory != false) ? currentCategory.trim().split(',') : [])
             .param(categoryName + '_exclude', (excludeCategories != false && currentCategory == initialCategory) ? excludeCategories.trim().split(',') : [])
             .param(regionName, (currentRegion != false) ? currentRegion.trim().split(',') : [])
+            .param(tagName, (currentTag != false) ? currentTag.trim().split(',') : [])
             .param('_embed', "1")
             .order('asc')
             .orderby('title')
@@ -300,6 +331,33 @@ export class App extends Component {
 
     }
 
+    // Method to fetch a set of tag terms, given a parent term ID 
+    fetchTags(parentTag) {
+
+        // Destruct required props and states
+        const { excludeTags } = this.props.args;
+
+        this.relWP.relTags()
+            .param('parent', (parentTag != false) ? parentTag : 0)
+            .param('exclude', (excludeTags != false) ? excludeTags.trim().split(',') : [])
+            .perPage(50)
+            .param('hide_empty', true)
+            .then((data) => {
+                if (data.length > 0) {
+                    // Hash static keys to every tag
+                    data.forEach(tag => tag.key = uuidv3(JSON.stringify(tag), uuidv3.URL));
+
+                    this.setState({
+                        tags: data
+                    })
+                }
+            })
+            .catch((err) => {
+                console.error("WP API Get Error: " + err);
+            });
+
+    }
+
     // Method to fetch a set of category terms, given a parent term ID 
     fetchRegions(parentRegion) {
 
@@ -359,11 +417,11 @@ export class App extends Component {
             return (
                 <div className="rel-loader-container">
                     <Loader
-                        type="RevolvingDot"
-                        color="#173f57"
+                        type="ThreeDots"
+                        color="#85cba5"
                         height={100}
                         width={100}
-                        timeout={2000}
+                        timeout={2800}
                     />
                 </div>
             )
@@ -418,6 +476,9 @@ export class App extends Component {
                     categories={this.state.categories}
                     currentCategory={this.state.currentCategory}
                     changeCategory={this.changeCategory}
+                    tags={this.state.tags}
+                    currentTag={this.state.currentTag}
+                    changeTag={this.changeTag}
                     regions={this.state.regions}
                     currentRegion={this.state.currentRegion}
                     changeRegion={this.changeRegion}

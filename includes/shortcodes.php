@@ -11,11 +11,13 @@ function create_rel_app( $atts ) {
 
     $default_atts = array( 
         'view' => 'grid',
-        'perpage' => '6',
-        'initial_category' => '0',
-        'exclude_categories' => '10',
+        'perpage' => '8',
+        'initial_category' => '',
+        'exclude_categories' => '',
+        'initial_tag' => '',
+        'exclude_tags' => '',
         'initial_region' => '',
-        'exclude_regions' => '50,63,51,56,62',
+        'exclude_regions' => '',
         'single_listing' => '',
     );
     $args = shortcode_atts( $default_atts, $atts );
@@ -38,6 +40,7 @@ function create_rel_app( $atts ) {
             "mapField": "<?php echo $globals["map_pin"]; ?>",
             "categoryName": "<?php echo $globals["category"]; ?>",
             "categoryIconField": "<?php echo $globals["category_icon"]; ?>",
+            "tagName": "<?php echo $globals["tag"]; ?>",
             "regionName": "<?php echo $globals["region"]; ?>",
             "regionColourField": "<?php echo $globals["region_colour"]; ?>",
             "placeholderImage": "<?php echo $globals["placeholder"]; ?>",
@@ -49,6 +52,8 @@ function create_rel_app( $atts ) {
             "perpage": "<?php echo $args["perpage"]; ?>",
             "initialCategory": "<?php echo $args["initial_category"]; ?>",
             "excludeCategories": "<?php echo $args["exclude_categories"]; ?>",
+            "initialTag": "<?php echo $args["initial_tag"]; ?>",
+            "excludeTags": "<?php echo $args["exclude_tags"]; ?>",
             "initialRegion": "<?php echo $args["initial_region"]; ?>",
             "excludeRegions": "<?php echo $args["exclude_regions"]; ?>",
             "singleListing": "<?php echo $args["single_listing"]; ?>"
@@ -59,4 +64,4 @@ function create_rel_app( $atts ) {
     <?php
     return ob_get_clean();
 }
-add_shortcode( 'react_experiences', 'create_rel_app');
+add_shortcode( 'dining_experiences', 'create_rel_app');

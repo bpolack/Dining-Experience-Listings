@@ -1,26 +1,25 @@
 .rel-cat-button {
-    display: inline-block;
+    display: block;
     cursor: pointer;
-    padding: 17px 25px;
-    color:#173f57;
+    border-radius: 5px;
+    padding: 8px 18px;
+    margin: 7px 0px;
+    color: #3d6955;
+    background-color: #85cba5;
     text-transform: uppercase;
-    font-size: 19px;
+    font-size: 17px;
     line-height: 1;
-    border-bottom: 1px solid #849452;
-    border-right: 1px solid #849452;
-    background-color: transparent;
-    transition:0.3s ease background-color;
-}
-.rel-cat-button:last-child {
-    border-right: 0px;
+    transition:0.3s ease all;
 }
 .rel-cat-button:hover, .rel-cat-button.active {
-    background-color: rgb(132, 148, 82, 0.3);
+    color: #FDCBA5;
+    background-color: #000000;
 }
-@media only screen and (max-width: 800px) {
-    .rel-cat-button {
-        display: block;
-        border-bottom: 0px;
-        border-right: 0px;
-    }
+.rel-header-category-children .rel-cat-button {
+    padding: 6px 15px;
+    font-size: 15px;
+}
+.rel-header-category-children .rel-header-category-children .rel-cat-button {
+    padding: 5px 12px;
+    font-size: 13px;
 }

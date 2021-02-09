@@ -1,15 +1,17 @@
 .rel-view-button {
     display: inline-block;
     cursor: pointer;
-    padding: 0px 26px;
-    color:#173f57;
-    font-size: 19px;
+    min-width: 38px;
+    padding: 8px 8px;
+    margin: 0px 6px;
+    border-radius: 5px;
+    color: #3d6955;
+    background-color: #85cba5;
+    font-size: 22px;
     line-height: 1;
-    border-right: 1px solid #849452;
-}
-.rel-view-button:last-child {
-    border-right: 0px;
+    text-align: center;
 }
 .rel-view-button:hover, .rel-view-button.active {
-    color:#849452;
+    color: #FDCBA5;
+    background-color:#000000;
 }

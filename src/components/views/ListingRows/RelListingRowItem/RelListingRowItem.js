@@ -1,32 +1,42 @@
 const { Component } = wp.element;
 const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
+import { getTermObject } from '../../../../helpers/wpapiHelpers';
+import { renderTermIcon } from '../../../../helpers/relHelpers';
 import './RelListingRowItem.css';
 
 export class RelListingRowItem extends Component {
+
+    // Render all the tags associated with the listing
+    renderTagIcons(listing, tagName, categoryIconField) {
+        
+        // Only continue if there is actually an icon field name set
+        if (categoryIconField != false && listing[tagName].length > 0){
+            // Create an object of all terms assigned to listing
+            const terms = getTermObject(listing);
+
+            return (
+                <div className="rel-tag-icons">
+                    {listing[tagName].map(tagId => {
+                        return renderTermIcon(terms[tagId], categoryIconField);
+                    })}
+                </div>
+            )
+        }
+    }
+
     render() {
 
         // Destruct required props and globals
         const {listing} = this.props;
-        const {addressField, regionColourField} = this.props.globals;
-
-        // Get the Region dot colour if it exists
-        let dotStyle = {
-            backgroundColor: '#c7c7c7'
-        }
-        if ((typeof listing._embedded['wp:term'][2] !== 'undefined') && (listing._embedded['wp:term'][2].length > 0) && (typeof listing._embedded['wp:term'][2][0].rel_fields[regionColourField] !== 'undefined')) {
-            dotStyle.backgroundColor = listing._embedded['wp:term'][2][0].rel_fields[regionColourField];
-        }
+        const {tagName, categoryIconField} = this.props.globals;
         
         return (
             <div className="rel-listing-row-item" onClick={(e) => this.props.toggleModal(e, false, listing)}>
                 <div className="rel-listing-row-details">
-                    <div className="rel-listing-row-dot-container">
-                        <div className="rel-listing-row-dot" style={dotStyle} ></div>
-                    </div>
                     <div className="rel-listing-row-text">
                         <h4>{entities.decode(listing.title.rendered)}</h4>
-                        <p>{entities.decode(listing.rel_fields[addressField])}</p>
+                        {this.renderTagIcons(listing, tagName, categoryIconField)}
                     </div>
                     <div className="rel-listing-row-arrow-container">
                         <div className="rel-listing-row-arrow"></div>

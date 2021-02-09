@@ -1,7 +1,7 @@
 {
-  "name": "react-experiences-listings",
+  "name": "dining-experience-listings",
   "version": "1.0.0",
-  "description": "Load React based experience/business listings via this Wordpress Plugin. Uses the Wordpress REST API as a backend, with configurable post-type and meta fields.",
+  "description": "Load React based experience listings via this Wordpress Plugin. Uses the Wordpress REST API as a backend, with configurable post-type and meta fields.",
   "main": "src/index.js",
   "scripts": {
     "build": "wp-scripts build",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bpolack/React-Experiences-Listings.git"
+    "url": "git+https://github.com/bpolack/Dining-Experience-Listings.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bpolack/React-Experiences-Listings/issues"
+    "url": "https://github.com/bpolack/Dining-Experience-Listings/issues"
   },
-  "homepage": "https://github.com/bpolack/React-Experiences-Listings#readme",
+  "homepage": "https://github.com/bpolack/Dining-Experience-Listings#readme",
   "devDependencies": {
     "@wordpress/scripts": "^12.5.0",
     "file-loader": "^6.2.0"

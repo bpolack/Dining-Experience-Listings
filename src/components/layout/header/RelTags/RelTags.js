@@ -1,16 +1,16 @@
 const { Component } = wp.element;
 import {SlideDown} from 'react-slidedown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './RelRegions.css';
+import './RelTags.css';
 import 'react-slidedown/lib/slidedown.css';
 
 // Fontawesome Icons
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 // Import Components
-import RelRegionButton from './RelRegionButton/RelRegionButton';
+import RelTagButton from './RelTagButton/RelTagButton';
 
-export class RelRegions extends Component {
+export class RelTags extends Component {
 
     constructor(props) {
         super(props);
@@ -39,7 +39,7 @@ export class RelRegions extends Component {
 
         return (
             <div className={classList} onClick={this.toggleDropdown}>
-                <span>Neighbourhood</span>
+                <span>Price Point</span>
                 <FontAwesomeIcon className="rel-dropdown-trigger-icon" icon={faCaretDown} />
             </div>
         )
@@ -47,14 +47,14 @@ export class RelRegions extends Component {
 
     render() {
         return (
-            <div className="rel-header-region-wrapper">
+            <div className="rel-header-tag-wrapper">
                 {this.renderDropdownTrigger()}
                 <SlideDown className="rel-category-dropdown" closed={this.state.dropdownClosed}>
                     <div className="rel-header-item">
-                        <div className="rel-header-regions">
-                            {this.props.regions.map((region, index) => {
+                        <div className="rel-header-tags">
+                            {this.props.tags.map((tag, index) => {
                                 return (
-                                    <RelRegionButton key={region.key} region={region} currentRegion={this.props.currentRegion} changeRegion={this.props.changeRegion} regionColourField={this.props.regionColourField} />
+                                    <RelTagButton key={tag.key} tag={tag} currentTag={this.props.currentTag} changeTag={this.props.changeTag} />
                                 )
                             })}
                         </div>
@@ -65,4 +65,4 @@ export class RelRegions extends Component {
     }
 }
 
-export default RelRegions
+export default RelTags

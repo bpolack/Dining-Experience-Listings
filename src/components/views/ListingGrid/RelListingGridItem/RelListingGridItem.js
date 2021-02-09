@@ -1,10 +1,11 @@
 const { Component } = wp.element;
 const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
+import { getTermObject } from '../../../../helpers/wpapiHelpers';
+import { renderTermIcon } from '../../../../helpers/relHelpers';
 import './RelListingGridItem.css';
 
 export class RelListingGridItem extends Component {
-
 
     renderLogo(listing, logoField) {
         if (typeof listing.rel_fields[logoField] !== 'undefined' && listing.rel_fields[logoField] != false) {
@@ -16,11 +17,29 @@ export class RelListingGridItem extends Component {
         }
     }
 
+    // Render all the tags associated with the listing
+    renderTagIcons(listing, tagName, categoryIconField) {
+        
+        // Only continue if there is actually an icon field name set
+        if (categoryIconField != false && listing[tagName].length > 0){
+            // Create an object of all terms assigned to listing
+            const terms = getTermObject(listing);
+
+            return (
+                <div className="rel-tag-icons">
+                    {listing[tagName].map(tagId => {
+                        return renderTermIcon(terms[tagId], categoryIconField);
+                    })}
+                </div>
+            )
+        }
+    }
+
     render() {
 
         // Destruct required props and globals
         const {listing} = this.props;
-        const {addressField, logoField, regionColourField, placeholderImage} = this.props.globals;
+        const {logoField, tagName, categoryIconField, placeholderImage} = this.props.globals;
 
         // Check for a featured image if it exists
         let thumbSrc = placeholderImage;
@@ -29,14 +48,6 @@ export class RelListingGridItem extends Component {
             thumbSrc = listing._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url;
             thumbAlt = listing._embedded['wp:featuredmedia'][0].alt_text;
         }
-
-        // Get the Region dot colour if it exists
-        let dotStyle = {
-            backgroundColor: '#c7c7c7'
-        }
-        if ((typeof listing._embedded['wp:term'][2] !== 'undefined') && (listing._embedded['wp:term'][2].length > 0) && (typeof listing._embedded['wp:term'][2][0].rel_fields[regionColourField] !== 'undefined')) {
-            dotStyle.backgroundColor = listing._embedded['wp:term'][2][0].rel_fields[regionColourField];
-        }
         
         return (
             <div className="rel-listing-grid-item" onClick={(e) => this.props.toggleModal(e, false, listing)}>
@@ -44,14 +55,11 @@ export class RelListingGridItem extends Component {
                     <img src={thumbSrc} alt={thumbAlt} />
                     {this.renderLogo(listing, logoField)}
                 </div>
+                <div className="rel-listing-grid-title">
+                    <h4>{entities.decode(listing.title.rendered)}</h4>
+                </div>
                 <div className="rel-listing-grid-details">
-                    <div className="rel-listing-grid-text">
-                        <h4>{entities.decode(listing.title.rendered)}</h4>
-                        <p>{entities.decode(listing.rel_fields[addressField])}</p>
-                    </div>
-                    <div className="rel-listing-grid-dot-container">
-                        <div className="rel-listing-grid-dot" style={dotStyle} ></div>
-                    </div>
+                    {this.renderTagIcons(listing, tagName, categoryIconField)}
                 </div>
             </div>
         )
