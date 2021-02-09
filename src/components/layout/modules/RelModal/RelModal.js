@@ -2,6 +2,8 @@ const { Component } = wp.element;
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
+import { getTermObject } from '../../../../helpers/wpapiHelpers';
+import { renderTermButton } from '../../../../helpers/relHelpers';
 import './RelModal.css';
 
 // Fontawesome Icons
@@ -67,11 +69,29 @@ export class RelModal extends Component {
         }
     }
 
+    // Render all the categories associated with a listing
+    renderCategories(listing, categoryName) {
+        
+        // Only continue if there is actually an icon field name set
+        if (listing[categoryName].length > 0){
+            // Create an object of all terms assigned to listing
+            const terms = getTermObject(listing);
+
+            return (
+                <div className="rel-category-buttons">
+                    {listing[categoryName].map(termId => {
+                        return renderTermButton(terms[termId]);
+                    })}
+                </div>
+            )
+        }
+    }
+
     render() {
 
         // Destruct required props and globals
         const listing = this.props.modalListing;
-        const {phoneField, addressField, logoField, mapField, websiteField, placeholderImage} = this.props.globals;
+        const {phoneField, addressField, logoField, mapField, websiteField, placeholderImage, categoryName} = this.props.globals;
 
         // Check for a featured image if it exists
         let thumbSrc = placeholderImage;
@@ -91,6 +111,7 @@ export class RelModal extends Component {
                     <div className="rel-modal-details">
                         <div className="rel-modal-title">
                             <h4>{entities.decode(listing.title.rendered)} {this.renderLink(listing.link)}</h4>
+                            {this.renderCategories(listing, categoryName)}
                         </div>
                         <div className="rel-modal-field-container">
                             {this.renderAddress(listing, addressField, mapField)}
