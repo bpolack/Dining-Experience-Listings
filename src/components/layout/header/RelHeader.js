@@ -27,8 +27,6 @@ export class RelHeader extends Component {
 
     renderCategories() {
         switch (this.props.currentView) {
-            case 'map':
-                return;
             case 'single':
                 return;
             default:

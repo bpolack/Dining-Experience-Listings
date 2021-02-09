@@ -29527,9 +29527,6 @@ var RelHeader = /*#__PURE__*/function (_Component) {
     key: "renderCategories",
     value: function renderCategories() {
       switch (this.props.currentView) {
-        case 'map':
-          return;
-
         case 'single':
           return;
 
