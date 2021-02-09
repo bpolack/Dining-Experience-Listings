@@ -515,10 +515,11 @@
 }
 .rel-modal-close-container {
     position: absolute;
-    top: -44px;
-    right: 5px;
+    top: 2px;
+    right: 2px;
     cursor: pointer;
     font-size: 30px;
+    line-height: 1;
     color: #fff8f3;
     transition: 0.3s ease color;
 }
@@ -574,11 +575,6 @@
     color: #85cba5;
 }
 @media only screen and (max-width: 800px) {
-    .rel-modal-close-container {
-        top:0px;
-        right:0px;
-        color: #173f57;
-    }
     .rel-modal-link {
         display: none;
     }
