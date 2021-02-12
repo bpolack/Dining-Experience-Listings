@@ -97,7 +97,7 @@ export class RelModal extends Component {
         let thumbSrc = placeholderImage;
         let thumbAlt = '';
         if (listing._embedded['wp:featuredmedia']) {
-            thumbSrc = listing._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
+            thumbSrc = listing._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url;
             thumbAlt = listing._embedded['wp:featuredmedia'][0].alt_text;
         }
 

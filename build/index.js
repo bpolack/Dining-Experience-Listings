@@ -30431,7 +30431,7 @@ var RelModal = /*#__PURE__*/function (_Component) {
       var thumbAlt = '';
 
       if (listing._embedded['wp:featuredmedia']) {
-        thumbSrc = listing._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
+        thumbSrc = listing._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url;
         thumbAlt = listing._embedded['wp:featuredmedia'][0].alt_text;
       }
 
@@ -31342,8 +31342,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _RelListingSingle_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./RelListingSingle.css */ "./src/components/views/ListingSingle/RelListingSingle.css");
-/* harmony import */ var _RelListingSingle_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_RelListingSingle_css__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _helpers_wpapiHelpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../helpers/wpapiHelpers */ "./src/helpers/wpapiHelpers.js");
+/* harmony import */ var _helpers_relHelpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../helpers/relHelpers */ "./src/helpers/relHelpers.js");
+/* harmony import */ var _RelListingSingle_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./RelListingSingle.css */ "./src/components/views/ListingSingle/RelListingSingle.css");
+/* harmony import */ var _RelListingSingle_css__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_RelListingSingle_css__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
 
 
 
@@ -31357,9 +31361,14 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 var Component = wp.element.Component;
 
+
 var Entities = __webpack_require__(/*! html-entities */ "./node_modules/html-entities/lib/index.js").AllHtmlEntities;
 
 var entities = new Entities();
+
+
+ // Fontawesome Icons
+
 
 var RelListingSingle = /*#__PURE__*/function (_Component) {
   _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(RelListingSingle, _Component);
@@ -31373,55 +31382,27 @@ var RelListingSingle = /*#__PURE__*/function (_Component) {
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(RelListingSingle, [{
-    key: "renderRegion",
-    value: function renderRegion(listing, regionColourField) {
-      // Get the Region name & colour if it exists
-      var regionName = false;
-      var dotStyle = {
-        backgroundColor: '#c7c7c7'
-      };
-
-      if (typeof listing._embedded['wp:term'][2] !== 'undefined' && listing._embedded['wp:term'][2].length > 0) {
-        if (typeof listing._embedded['wp:term'][2][0].rel_fields[regionColourField] !== 'undefined') {
-          dotStyle.backgroundColor = listing._embedded['wp:term'][2][0].rel_fields[regionColourField];
-        }
-
-        regionName = entities.decode(listing._embedded['wp:term'][2][0].name);
-      }
-
-      if (regionName) {
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-region-container"
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-region-dot",
-          style: dotStyle
-        }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-region"
-        }, regionName));
-      }
-    }
-  }, {
     key: "renderAddress",
     value: function renderAddress(listing, addressField, mapField) {
       if (listing.rel_fields[addressField] != false && listing.rel_fields[mapField] != false) {
         var mapsLink = "http://maps.google.com/maps?q=" + listing.rel_fields[mapField].lat + "," + listing.rel_fields[mapField].lng;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-field"
+          className: "rel-modal-field"
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-region-dot empty"
-        }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-address"
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("a", {
+          className: "rel-modal-address"
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_6__["FontAwesomeIcon"], {
+          icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_10__["faMapMarkerAlt"]
+        }), " ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("a", {
           href: mapsLink,
           target: "_blank"
         }, entities.decode(listing.rel_fields[addressField]))));
       } else if (listing.rel_fields[addressField] != false) {
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-field"
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-region-dot empty"
-        }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-address"
+          className: "rel-modal-field"
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_6__["FontAwesomeIcon"], {
+          icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_10__["faMapMarkerAlt"]
+        }), " ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
+          className: "rel-modal-address"
         }, entities.decode(listing.rel_fields[addressField])));
       }
     }
@@ -31430,11 +31411,11 @@ var RelListingSingle = /*#__PURE__*/function (_Component) {
     value: function renderPhone(listing, phoneField) {
       if (listing.rel_fields[phoneField] != false) {
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-field"
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-region-dot empty"
-        }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-phone"
+          className: "rel-modal-field"
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_6__["FontAwesomeIcon"], {
+          icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_10__["faPhoneAlt"]
+        }), " ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
+          className: "rel-modal-phone"
         }, entities.decode(listing.rel_fields[phoneField])));
       }
     }
@@ -31443,12 +31424,12 @@ var RelListingSingle = /*#__PURE__*/function (_Component) {
     value: function renderWebsite(listing, websiteField) {
       if (listing.rel_fields[websiteField] != false) {
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-field"
+          className: "rel-modal-field"
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-region-dot empty"
-        }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-website"
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("a", {
+          className: "rel-modal-website"
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_6__["FontAwesomeIcon"], {
+          icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_10__["faExternalLinkAlt"]
+        }), " ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("a", {
           href: listing.rel_fields[websiteField],
           target: "_blank"
         }, listing.rel_fields[websiteField])));
@@ -31459,9 +31440,24 @@ var RelListingSingle = /*#__PURE__*/function (_Component) {
     value: function renderLogo(listing, logoField) {
       if (typeof listing.rel_fields[logoField] !== 'undefined' && listing.rel_fields[logoField] != false) {
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-logo"
+          className: "rel-modal-logo"
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("img", {
           src: listing.rel_fields[logoField]
+        }));
+      }
+    } // Render all the categories associated with a listing
+
+  }, {
+    key: "renderCategories",
+    value: function renderCategories(listing, categoryName) {
+      // Only continue if there is actually an icon field name set
+      if (listing[categoryName].length > 0) {
+        // Create an object of all terms assigned to listing
+        var terms = Object(_helpers_wpapiHelpers__WEBPACK_IMPORTED_MODULE_7__["getTermObject"])(listing);
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
+          className: "rel-category-buttons"
+        }, listing[categoryName].map(function (termId) {
+          return Object(_helpers_relHelpers__WEBPACK_IMPORTED_MODULE_8__["renderTermButton"])(terms[termId]);
         }));
       }
     }
@@ -31476,8 +31472,8 @@ var RelListingSingle = /*#__PURE__*/function (_Component) {
           logoField = _this$props$globals.logoField,
           mapField = _this$props$globals.mapField,
           websiteField = _this$props$globals.websiteField,
-          regionColourField = _this$props$globals.regionColourField,
-          placeholderImage = _this$props$globals.placeholderImage;
+          placeholderImage = _this$props$globals.placeholderImage,
+          categoryName = _this$props$globals.categoryName;
 
       if (listing) {
         // Check for a featured image if it exists
@@ -31485,29 +31481,31 @@ var RelListingSingle = /*#__PURE__*/function (_Component) {
         var thumbAlt = '';
 
         if (listing._embedded['wp:featuredmedia']) {
-          thumbSrc = listing._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url;
+          thumbSrc = listing._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url;
           thumbAlt = listing._embedded['wp:featuredmedia'][0].alt_text;
         }
 
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-listings-single"
+          className: "rel-listing-single-container"
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-image"
+          className: "rel-modal-image"
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("img", {
           src: thumbSrc,
           alt: thumbAlt
         }), this.renderLogo(listing, logoField)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-details"
+          className: "rel-modal-details"
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-text"
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("h4", null, entities.decode(listing.title.rendered)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-content",
+          className: "rel-modal-title"
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("h1", null, entities.decode(listing.title.rendered), " "), this.renderCategories(listing, categoryName)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
+          className: "rel-modal-field-container"
+        }, this.renderAddress(listing, addressField, mapField), this.renderPhone(listing, phoneField), this.renderWebsite(listing, websiteField)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
+          className: "rel-modal-text"
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
+          className: "rel-modal-content",
           dangerouslySetInnerHTML: {
             __html: entities.decode(listing.content.rendered)
           }
-        })), this.renderRegion(listing, regionColourField), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
-          className: "rel-single-field-container"
-        }, this.renderAddress(listing, addressField, mapField), this.renderPhone(listing, phoneField), this.renderWebsite(listing, websiteField))));
+        }))));
       } else {
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__["createElement"])("div", {
           className: "rel-listings-single"
