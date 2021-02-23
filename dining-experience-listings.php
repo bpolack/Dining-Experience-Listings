@@ -3,8 +3,8 @@
  * @wordpress-plugin
  * Plugin Name:       Dining Experience Listings
  * Plugin URI:        https://github.com/bpolack/Dining-Experience-Listings
- * Description:       Load React based experience listings via this Wordpress Plugin. Uses the Wordpress REST API as a backend.
- * Version:           0.8.5
+ * Description:       Load React based dining listings via this Wordpress Plugin. Uses the Wordpress REST API as a backend.
+ * Version:           1.0.0
  * Author:            Braighton Polack
  */
 
