@@ -377,7 +377,7 @@
     background-color: #3d6955;
 }
 .rel-modal-image {
-    max-height: 180px;
+    max-height: 300px;
     display: flex;
     background-color: #ddd;
     position: relative;
@@ -499,7 +499,7 @@
     }
 }
 .rel-modal-image {
-    max-height: 180px;
+    max-height: 240px;
     display: flex;
     background-color: #ddd;
     position: relative;

@@ -26,7 +26,7 @@
     }
 }
 .rel-modal-image {
-    max-height: 180px;
+    max-height: 240px;
     display: flex;
     background-color: #ddd;
     position: relative;
