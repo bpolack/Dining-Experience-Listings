@@ -4,12 +4,18 @@ const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
 import { getTermObject } from '../../../../helpers/wpapiHelpers';
 import { renderTermButton } from '../../../../helpers/relHelpers';
+import { relEvent } from "../../../../helpers/relTracker";
 import './RelModal.css';
 
 // Fontawesome Icons
 import { faTimesCircle, faLink, faMapMarkerAlt, faPhoneAlt, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
 export class RelModal extends Component {
+
+    componentDidMount() {
+        const listing = this.props.modalListing;
+        relEvent("LISTING", "Listing Modal Opened", entities.decode(listing.title.rendered));
+    }
 
     renderAddress(listing, addressField, mapField) {
         if (listing.rel_fields[addressField] != false && listing.rel_fields[mapField] != false) {
@@ -19,7 +25,7 @@ export class RelModal extends Component {
             return (
                 <div className="rel-modal-field">
                     <div className="rel-modal-address">
-                        <FontAwesomeIcon icon={faMapMarkerAlt} /> <a href={mapsLink} target="_blank">{entities.decode(listing.rel_fields[addressField])}</a>
+                        <FontAwesomeIcon icon={faMapMarkerAlt} /> <a href={mapsLink} target="_blank" onClick={() => relEvent("OUTGOING", "Listing Address Clicked", entities.decode(listing.title.rendered))}>{entities.decode(listing.rel_fields[addressField])}</a>
                     </div>
                 </div>
             )
@@ -46,7 +52,7 @@ export class RelModal extends Component {
             return (
                 <div className="rel-modal-field">
                     <div className="rel-modal-website">
-                    <FontAwesomeIcon icon={faExternalLinkAlt} /> <a href={listing.rel_fields[websiteField]} target="_blank">{listing.rel_fields[websiteField]}</a>
+                    <FontAwesomeIcon icon={faExternalLinkAlt} /> <a href={listing.rel_fields[websiteField]} target="_blank" onClick={() => relEvent("OUTGOING", "Listing Website Clicked", entities.decode(listing.title.rendered))}>{listing.rel_fields[websiteField]}</a>
                     </div>
                 </div>
             )

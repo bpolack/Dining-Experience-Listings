@@ -3,9 +3,15 @@ const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
 import { getTermObject } from '../../../../helpers/wpapiHelpers';
 import { renderTermIcon } from '../../../../helpers/relHelpers';
+import { relEvent } from "../../../../helpers/relTracker";
 import './RelListingRowItem.css';
 
 export class RelListingRowItem extends Component {
+
+    componentDidMount() {
+        const {listing} = this.props;
+        relEvent("LISTING", "Listing Viewed", entities.decode(listing.title.rendered));
+    }
 
     // Render all the tags associated with the listing
     renderTagIcons(listing, tagName, categoryIconField) {

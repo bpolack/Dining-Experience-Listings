@@ -39,6 +39,7 @@ function rel_register_settings() {
 
     add_settings_field( 'rel_plugin_setting_placeholder', 'Placeholder Image URL', 'rel_plugin_setting_placeholder', 'react-experiences-listings', 'post_type_settings' );
     add_settings_field( 'rel_plugin_setting_apikey', 'Google Maps API Key', 'rel_plugin_setting_apikey', 'react-experiences-listings', 'post_type_settings' );
+    add_settings_field( 'rel_plugin_setting_tracker', 'Google Analytics Tracking ID', 'rel_plugin_setting_tracker', 'react-experiences-listings', 'post_type_settings' );
 }
 add_action( 'admin_init', 'rel_register_settings' );
 
@@ -101,4 +102,8 @@ function rel_plugin_setting_placeholder() {
 function rel_plugin_setting_apikey() {
     $options = get_option( 'rel_plugin_options' );
     echo '<input id="rel_plugin_setting_apikey" name="rel_plugin_options[apikey]" type="text" value="'.esc_attr( $options['apikey'] ).'" />';
+}
+function rel_plugin_setting_tracker() {
+    $options = get_option( 'rel_plugin_options' );
+    echo '<input id="rel_plugin_setting_tracker" name="rel_plugin_options[tracker]" type="text" value="'.esc_attr( $options['tracker'] ).'" />';
 }

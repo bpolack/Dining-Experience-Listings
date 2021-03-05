@@ -3,9 +3,15 @@ const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
 import { getTermObject } from '../../../../helpers/wpapiHelpers';
 import { renderTermIcon } from '../../../../helpers/relHelpers';
+import { relEvent } from "../../../../helpers/relTracker";
 import './RelListingGridItem.css';
 
 export class RelListingGridItem extends Component {
+
+    componentDidMount() {
+        const {listing} = this.props;
+        relEvent("LISTING", "Listing Viewed", entities.decode(listing.title.rendered));
+    }
 
     renderLogo(listing, logoField) {
         if (typeof listing.rel_fields[logoField] !== 'undefined' && listing.rel_fields[logoField] != false) {

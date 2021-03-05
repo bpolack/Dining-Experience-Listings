@@ -4,6 +4,7 @@ const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
 import { getTermObject } from '../../../helpers/wpapiHelpers';
 import { renderTermButton } from '../../../helpers/relHelpers';
+import { relEvent } from "../../../helpers/relTracker";
 import './RelListingSingle.css';
 
 // Fontawesome Icons
@@ -87,6 +88,9 @@ export class RelListingSingle extends Component {
         const {phoneField, addressField, logoField, mapField, websiteField, placeholderImage, categoryName} = this.props.globals;
 
         if (listing) {
+
+            relEvent("LISTING", "Listing Single Opened", entities.decode(listing.title.rendered));
+
             // Check for a featured image if it exists
             let thumbSrc = placeholderImage;
             let thumbAlt = '';

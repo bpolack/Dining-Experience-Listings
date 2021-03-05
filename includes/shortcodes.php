@@ -12,6 +12,7 @@ function create_rel_app( $atts ) {
     $default_atts = array( 
         'view' => 'grid',
         'perpage' => '8',
+        'paging_type' => 'loadmore', // loadmore or infinite
         'initial_category' => '',
         'exclude_categories' => '',
         'initial_tag' => '',
@@ -44,12 +45,14 @@ function create_rel_app( $atts ) {
             "regionName": "<?php echo $globals["region"]; ?>",
             "regionColourField": "<?php echo $globals["region_colour"]; ?>",
             "placeholderImage": "<?php echo $globals["placeholder"]; ?>",
-            "apiKey": "<?php echo $globals["apikey"]; ?>"
+            "apiKey": "<?php echo $globals["apikey"]; ?>",
+            "trackingID": "<?php echo $globals["tracker"]; ?>"
         };
         window.relSettings = window.relSettings || {};
         window.relSettings["<?php echo $sc_id; ?>"] = {
             "view": "<?php echo $args["view"]; ?>",
             "perpage": "<?php echo $args["perpage"]; ?>",
+            "pagingType": "<?php echo $args["paging_type"]; ?>",
             "initialCategory": "<?php echo $args["initial_category"]; ?>",
             "excludeCategories": "<?php echo $args["exclude_categories"]; ?>",
             "initialTag": "<?php echo $args["initial_tag"]; ?>",

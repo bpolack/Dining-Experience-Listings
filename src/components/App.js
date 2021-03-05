@@ -2,6 +2,7 @@ const { Component } = wp.element;
 const WPAPI = require('wpapi');
 import { v3 as uuidv3 } from 'uuid';
 import Loader from 'react-loader-spinner'
+import { initGA } from '../helpers/relTracker';
 import './App.css';
 
 // Import Components
@@ -51,6 +52,11 @@ export class App extends Component {
     }
 
     componentDidMount() {
+        // Initialize GA tracking
+        if (this.props.globals.trackingID) {
+            initGA(this.props.globals.trackingID);
+        }
+
         if (this.state.view !== 'single') {
             this.fetchCategories(this.state.currentCategory);
             this.fetchTags(this.state.currentTag);
@@ -490,6 +496,7 @@ export class App extends Component {
                     currentView={this.state.view}
                     page={this.state.page}
                     totalPages={this.state.totalPages}
+                    pagingType={this.props.args.pagingType} 
                     loadMore={this.loadMore}
                 />
                 {this.renderModal()}

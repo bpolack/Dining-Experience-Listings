@@ -1,4 +1,5 @@
 const { useState, useCallback } = wp.element;
+import { relEvent } from "../../../helpers/relTracker";
 import { GoogleMap, useJsApiLoader, MarkerClusterer } from '@react-google-maps/api';
 import './RelListingMap.css';
 
@@ -231,6 +232,10 @@ function RelListingMap(props) {
     }
 
     const onLoad = useCallback(function callback(map) {
+
+        // Trigger an event to show view has changed
+        relEvent("DISPLAY", "Experiences view changed", "Map");
+
         triggerMapLoadMore(true);
     }, [])
 

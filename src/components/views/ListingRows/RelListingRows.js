@@ -1,10 +1,16 @@
 const { Component } = wp.element;
+import { relEvent } from "../../../helpers/relTracker";
 import './RelListingRows.css';
 
 // Import Components
 import RelListingRowItem from './RelListingRowItem/RelListingRowItem';
 
 export class RelListingRows extends Component {
+
+    componentDidMount() {
+        relEvent("DISPLAY", "Experiences view changed", "Rows");
+    }
+
     render() {
         return (
             <div className="rel-listings-rows">
