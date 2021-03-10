@@ -1,7 +1,7 @@
 const { Component } = wp.element;
-const WPAPI = require('wpapi');
+import WPAPI from 'wpapi/browser/wpapi.min';
 import { v3 as uuidv3 } from 'uuid';
-import Loader from 'react-loader-spinner'
+import Loader from 'react-loader-spinner';
 import { initGA } from '../helpers/relTracker';
 import './App.css';
 

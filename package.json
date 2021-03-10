@@ -6,7 +6,9 @@
   "scripts": {
     "build": "wp-scripts build",
     "start": "wp-scripts start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "packages-update": "wp-scripts packages-update",
+    "postpackages-update": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -19,7 +21,7 @@
   },
   "homepage": "https://github.com/bpolack/Dining-Experience-Listings#readme",
   "devDependencies": {
-    "@wordpress/scripts": "^12.5.0",
+    "@wordpress/scripts": "^13.0.3",
     "file-loader": "^6.2.0"
   },
   "dependencies": {
@@ -34,5 +36,17 @@
     "react-slidedown": "^2.4.5",
     "uuid": "^8.3.2",
     "wpapi": "^1.2.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
   }
 }
